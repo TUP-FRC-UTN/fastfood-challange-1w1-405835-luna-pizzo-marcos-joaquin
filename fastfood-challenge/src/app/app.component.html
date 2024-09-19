@@ -1,0 +1,137 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand">Restaurante</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/pos">Pedidos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/kichen">Cocina</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/delivery">Delivery</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container text-center mt-5">
+ 
+  <div class="row justify-content-center">
+    <div class="col-md-3 me-3 px-0 py-5 border border-black border-4 rounded-5 d-flex flex-column align-items-center">
+      <a routerLink="/pos" class="d-flex justify-content-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-notes" width="144" height="144" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M5 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
+          <path d="M9 7l6 0" />
+          <path d="M9 11l6 0" />
+          <path d="M9 15l4 0" />
+        </svg>
+      </a>
+      <h3 class="mt-3">Pedidos</h3>
+    </div>
+
+  
+
+    <div  class="col-md-3 mx-3 px-0 py-5 border border-black border-4 rounded-5 d-flex flex-column align-items-center">
+      <a routerLink="/kichen" class="d-flex justify-content-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chef-hat" width="144" height="144" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M12 3c1.918 0 3.52 1.35 3.91 3.151a4 4 0 0 1 2.09 7.723l0 7.126h-12v-7.126a4 4 0 1 1 2.092 -7.723a4 4 0 0 1 3.908 -3.151z" />
+          <path d="M6.161 17.009l11.839 -.009" />
+        </svg>
+      </a>
+      <h3 class="mt-3">Cocina</h3>
+    </div>
+
+    <div class="col-md-3 ms-3 px-0 py-5 border border-black border-4 rounded-5 d-flex flex-column align-items-center">
+      <a routerLink="/delivery" class="d-flex justify-content-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-moped" width="144" height="144" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M18 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+          <path d="M5 16v1a2 2 0 0 0 4 0v-5h-3a3 3 0 0 0 -3 3v1h10a6 6 0 0 1 5 -4v-5a2 2 0 0 0 -2 -2h-1" />
+          <path d="M6 9l3 0" />
+        </svg>
+      </a>
+      <h3 class="mt-3">Delivery</h3>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
+
+<div class="container mt-4">
+    <h2>Lista de Pedidos</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Pedido</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Hora</th>
+
+            </tr>
+        </thead>
+        <tbody>
+          
+            @for (item of lstPedidos; track $index) {
+              @if (item.estado==0) {
+                <tr  [ngClass]="{'table-success': item.estado === estadoEnum.INGRESADO}">
+                  <th scope="row">{{item.numero}}</th>
+                  <td>{{item.nombre}}</td>
+                  <td>{{item.descripcion}}</td>
+                  <td>{{obtenerNombreEstado(item.estado)}}</td>
+                  <td>{{item.fecha | date:'dd/MM/yyyy' }}</td>
+                  <td>{{item.fecha | date:'hh:mm' }}</td>
+              }
+              }
+           @for (item of lstPedidos; track $index) {
+                @if (item.estado==1) {
+                  <tr [ngClass]="{'table-primary': item.estado === estadoEnum.PREPARANDO}">
+                    <th scope="row">{{item.numero}}</th>
+                    <td>{{item.nombre}}</td>
+                    <td>{{item.descripcion}}</td>
+                    <td>{{obtenerNombreEstado(item.estado)}}</td>
+                    <td>{{item.fecha | date:'dd/MM/yyyy' }}</td>
+                    <td>{{item.fecha | date:'hh:mm' }}</td>
+                }
+                }
+             @for (item of lstPedidos; track $index) {
+                  @if (item.estado==2) {
+                    <tr  [ngClass]="{'table-warning': item.estado === estadoEnum.TERMINADO}">
+                      <th scope="row">{{item.numero}}</th>
+                      <td>{{item.nombre}}</td>
+                      <td>{{item.descripcion}}</td>
+                      <td>{{obtenerNombreEstado(item.estado)}}</td>
+                      <td>{{item.fecha | date:'dd/MM/yyyy' }}</td>
+                      <td>{{item.fecha | date:'hh:mm' }}</td>
+                  }
+                  }
+               @for (item of lstPedidos; track $index) {
+                    @if (item.estado==3) {
+                      <tr  [ngClass]="{'table-danger': item.estado === estadoEnum.ENTREGADO}">
+                        <th scope="row">{{item.numero}}</th>
+                        <td>{{item.nombre}}</td>
+                        <td>{{item.descripcion}}</td>
+                        <td>{{obtenerNombreEstado(item.estado)}}</td>
+                        <td>{{item.fecha | date:'dd/MM/yyyy' }}</td>
+                        <td>{{item.fecha | date:'hh:mm' }}</td>
+                    }
+                    }
+            
+        </tbody>
+    </table>
+</div>
+<br>
+<hr>
+

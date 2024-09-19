@@ -1,0 +1,35 @@
+<div class="container mt-4">
+    <h2>Pedidos Ingresados</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Pedido</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Hora</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @for (item of lstPedidos; track $index) {
+                @if (item.estado==2) {
+                    <tr [ngClass]="'table-warning'">
+                        <th scope="row">{{item.numero}}</th>
+                        <td>{{item.nombre}}</td>
+                        <td>{{item.descripcion}}</td>
+                        <td>{{obtenerNombreEstado( item.estado)}}</td>
+                        <td>{{item.fecha | date:'dd/MM/yyyy' }}</td>
+                        <td>{{item.fecha | date:'hh:mm' }}</td>
+
+                        <td>    <button type="submit" class="btn btn-primary" (click)="cambiarEstado(item)">Entregar</button>
+                        </td>
+                    </tr>
+                }
+           
+            }
+        </tbody>
+    </table>
+</div>
+<br>

@@ -1,0 +1,22 @@
+<div class="container m-5 p-5 border border-black border-2 rounded-5">
+  <h2>Nuevo Pedido</h2>
+  <form #miFormulario="ngForm" (ngSubmit)="enviarPedido(miFormulario)">
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Cliente:</label>
+      <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="nombre" required minlength="3">
+      <div *ngIf="miFormulario.controls['nombre']?.invalid && miFormulario.controls['nombre']?.touched" class="text-danger">
+        <small>El nombre es requerido y debe tener al menos 3 caracteres.</small>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="descripcion" class="form-label">Pedido:</label>
+      <textarea class="form-control" id="descripcion" name="descripcion" [(ngModel)]="descripcion" required></textarea>
+      <div *ngIf="miFormulario.controls['descripcion']?.invalid && miFormulario.controls['descripcion']?.touched" class="text-danger">
+        <small>La descripción es requerida.</small>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="miFormulario.invalid">Enviar</button>
+  </form>
+</div>
